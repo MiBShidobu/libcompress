@@ -39,7 +39,7 @@ PrintTable(lz_archive:get_files()) --[[
 	2	=	init_menu.lua
 ]]--
 
-for _, file_name in ipairs(lz_archive:get_files("**.lua", "y")) do
+for _, file_name in ipairs(lz_archive:get_files("**.lua")) do
     -- Can filter files too, using ** instead of * keeps it to the same directory level
     print("File:", file_name)
     print(lz_archive:file(file_name)) -- Decompresses and prints the content
