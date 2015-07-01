@@ -1,45 +1,45 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>libcompress by MiBShidobu</title>
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/github-light.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1>libcompress</h1>
-        <p>A simple library that provides archiving functionality via FastLZ within Garry&#39;s Mod.</p>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="chrome=1">
+		<title>libcompress by MiBShidobu</title>
 
-        <p class="view"><a href="https://github.com/MiBShidobu/libcompress">View the Project on GitHub <small>MiBShidobu/libcompress</small></a></p>
+		<link rel="stylesheet" href="stylesheets/styles.css">
+		<link rel="stylesheet" href="stylesheets/github-light.css">
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	</head>
 
+	<body>
+		<div class="wrapper">
+			<header>
+				<h1>libcompress</h1>
+				<p>A simple library that provides archiving functionality via FastLZ within Garry&#39;s Mod.</p>
 
-        <ul>
-          <li><a href="https://github.com/MiBShidobu/libcompress/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/MiBShidobu/libcompress/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/MiBShidobu/libcompress">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <h2>
+				<ul>
+					<li><a href="https://github.com/MiBShidobu/libcompress">View On <strong>GitHub</strong></a></li>
+					<li><a href="http://mibshidobu.github.io/libcompress/api">View API <strong>Wiki</strong></a></li>
+					<li><a href="https://github.com/MiBShidobu/libcompress/releases">Download <strong>Release</strong></a></li>
+				</ul>
+			</header>
+			<section>
+				<h2>
 <a id="dependencies" class="anchor" href="#dependencies" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dependencies:</h2>
 
-<ul>
-<li><a href="https://github.com/Yonaba/30log">30log</a></li>
-<li><a href="https://github.com/MiBShidobu/libpack">libpack</a></li>
-</ul>
+				<ul>
+					<li><a href="https://github.com/Yonaba/30log">30log</a></li>
+					<li><a href="https://github.com/MiBShidobu/libpack">libpack</a></li>
+				</ul>
 
-<h2>
+				<h2>
 <a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage:</h2>
 
-<div class="highlight highlight-lua"><pre><span class="pl-c">-- Compression</span>
+				<div class="highlight highlight-lua"><pre><span class="pl-c">-- Compression</span>
 <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">"</span>libcompress<span class="pl-pds">"</span></span>)
 
 <span class="pl-k">local</span> test_file_one <span class="pl-k">=</span> file.<span class="pl-c1">Read</span>(<span class="pl-s"><span class="pl-pds">"</span>lua/includes/init.lua<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>GAME<span class="pl-pds">"</span></span>)
@@ -59,22 +59,28 @@ file.<span class="pl-c1">Write</span>(<span class="pl-s"><span class="pl-pds">"<
 
 <span class="pl-k">local</span> lz_archive <span class="pl-k">=</span> libcompress.<span class="pl-c1">LZArchive</span>(compressed_data)
 <span class="pl-c1">PrintTable</span>(lz_archive:<span class="pl-c1">get_files</span>()) <span class="pl-c">--[[</span>
-<span class="pl-c">    1   =   init.lua</span>
-<span class="pl-c">    2   =   init_menu.lua</span>
+<span class="pl-c">	1   =   init.lua</span>
+<span class="pl-c">	2   =   init_menu.lua</span>
 <span class="pl-c">]]</span><span class="pl-c">--</span>
 
 <span class="pl-k">for</span> _, file_name <span class="pl-k">in</span> <span class="pl-c1">ipairs</span>(lz_archive:<span class="pl-c1">get_files</span>(<span class="pl-s"><span class="pl-pds">"</span>**.lua<span class="pl-pds">"</span></span>)) <span class="pl-k">do</span>
-    <span class="pl-c">-- Can filter files too, using ** instead of * keeps it to the same directory level</span>
-    <span class="pl-c1">print</span>(<span class="pl-s"><span class="pl-pds">"</span>File:<span class="pl-pds">"</span></span>, file_name)
-    <span class="pl-c1">print</span>(lz_archive:<span class="pl-c1">file</span>(file_name)) <span class="pl-c">-- Decompresses and prints the content</span>
+	<span class="pl-c">-- Can filter files too, using ** instead of * keeps it to the same directory level</span>
+	<span class="pl-c1">print</span>(<span class="pl-s"><span class="pl-pds">"</span>File:<span class="pl-pds">"</span></span>, file_name)
+	<span class="pl-c1">print</span>(lz_archive:<span class="pl-c1">file</span>(file_name)) <span class="pl-c">-- Decompresses and prints the content</span>
 <span class="pl-k">end</span></pre></div>
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/MiBShidobu">MiBShidobu</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
-    </div>
-    <script src="javascripts/scale.fix.js"></script>
-    
-  </body>
+			</section>
+			<footer>
+				<p>Project maintained by <strong>
+					MiBShidobu&nbsp;
+					<a style="color: #222;" href="https://github.com/MiBShidobu" target="_blank"><i class="fa fa-github-square"></i></a>&nbsp;
+					<a style="color: #222;" href="http://steamcommunity.com/profiles/76561197967808946" target="_blank"><i class="fa fa-steam-square"></i></a>
+				</strong></p>
+
+				<p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+			</footer>
+		</div>
+		<script src="javascripts/scale.fix.js"></script>
+
+	</body>
+
 </html>
