@@ -1,5 +1,11 @@
 -- lua/includes/modules/libcompress.lua
 
+----
+-- Provides a class to automate compression of multiple files
+--
+-- @name libcompress
+-- @class module
+
 -- =============================================================================
 -- >>> IMPORTS
 -- =============================================================================
@@ -12,10 +18,18 @@ require("libpack.format")
 -- =============================================================================
 -- >>> UTILITY FUNCTIONS
 -- =============================================================================
--- Source: wildfiregames
--- http://svn.wildfiregames.com/public/ps/trunk/build/premake/premake4/src/base/path.lua
+
+----
+-- Converts from a simple wildcard syntax, where * is 'match any' and ** is 'match recursive', to the corresponding Lua pattern
+--
+-- Author: wildfiregames
+-- Source: http://svn.wildfiregames.com/public/ps/trunk/build/premake/premake4/src/base/path.lua
+--
+-- ^name	glob_pattern
+-- ^class	function
+-- ^param	match_pattern	A string with a glob pattern
+-- ^return	Returns a converted Lua pattern
 local function glob_pattern(match_pattern)
-	-- Converts from a simple wildcard syntax, where * is 'match any' and ** is 'match recursive', to the corresponding Lua pattern
 	match_pattern = match_pattern:gsub("([%+%.%-%^%$%(%)%%])", "%%%1")
 
 	match_pattern = match_pattern:gsub("%*%*", "\001")
@@ -27,8 +41,15 @@ local function glob_pattern(match_pattern)
 	return match_pattern
 end
 
+-----
+-- Matches the Glob-like pattern to the string
+--
+-- ^name	has_match
+-- ^class	function
+-- ^param	match_pattern	A string with a glob pattern
+-- ^param	match_string	A string to match to
+-- ^return	Returns a boolean if the string matched the pattern.
 local function has_match(match_pattern, match_string)
-	-- Matches the Glob-like pattern to the string
 	if string.match(match_string, glob_pattern(match_pattern)) then
 		return true
 	end
@@ -39,10 +60,21 @@ end
 -- =============================================================================
 -- >>> LIBRARY CLASSES
 -- =============================================================================
+
+-----
+-- The LZArchive class
+--
+-- @name	LZArchive
+-- @class	function
 local LZArchive = class("LZArchive")
 
+-----
+-- Constructor for the LZArchive class
+--
+-- @name	LZArchive:init
+-- @class	function
+-- @param	compressed_data (Optional) Compressed data to decompress
 function LZArchive:init(compressed_data)
-	-- Constructor for the LZArchive class
 	self.file_cache = {}
 	if compressed_data then
 		local archive_length = libpack.format.unpack("<L", compressed_data)
@@ -65,8 +97,15 @@ function LZArchive:init(compressed_data)
 	end
 end
 
+-----
+-- Sets or returns the file content
+--
+-- @name	LZArchive:file
+-- @class	function
+-- @param	file_path		The file path to look up
+-- @param	file_content	(Optional) Content to set for the file path
+-- @return	Returns the file path uncompressed content
 function LZArchive:file(file_path, file_content)
-	-- Returns or sets a file's content from the LZArchive
 	local file_data = nil
 	for _, file_info in ipairs(self.file_cache) do
 		if file_info.path == file_path then
@@ -90,8 +129,14 @@ function LZArchive:file(file_path, file_content)
 	end
 end
 
+-----
+-- Returns the file names matched to the option filter pattern
+--
+-- @name	LZArchive:get_files
+-- @class	function
+-- @param	filter_pattern	The glob pattern for filtering
+-- @return	Returns an array of file paths
 function LZArchive:get_files(filter_pattern)
-	-- Returns the file names matched to the option filter pattern
 	local file_list = {}
 
 	filter_pattern = filter_pattern or "*"
@@ -105,8 +150,13 @@ function LZArchive:get_files(filter_pattern)
 	return file_list
 end
 
+-----
+-- Compresses the added files and returns the completed archive
+--
+-- @name	LZArchive:get_archive
+-- @class	function
+-- @return	Returns the compressed archive content
 function LZArchive:get_archive()
-	-- Compresses the added files and returns the completed archive
 	local archive_content = libpack.format.pack("<L", #self.file_cache)
 	for _, file_info in ipairs(self.file_cache) do
 		local path_packed		= libpack.format.pack("<A", util.Compress(file_info.path))

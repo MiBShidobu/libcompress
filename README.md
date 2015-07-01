@@ -1,7 +1,7 @@
 libcompress By MiBShidobu
 ===
 
-<center>[Steam Profile](http://steamcommunity.com/profiles/76561197967808946) &#x02016; [GitHub](https://github.com/MiBShidobu/libcompress)</center>
+[GitHub Repository](https://github.com/MiBShidobu/libcompress) &#x02016; [GitHub Page](http://mibshidobu.github.io/libcompress)
 
 ## Description: ##
 A simple library that provides archiving functionality via FastLZ within Garry's Mod.
@@ -47,4 +47,4 @@ end
 ```
 
 ## Credits: ##
-[MiBShidobu](http://steamcommunity.com/profiles/76561197967808946) - Main Developer
+[MiBShidobu](https://github.com/mibshidobu) &#x02016; [Steam](http://steamcommunity.com/profiles/76561197967808946) - Project Maintainer
